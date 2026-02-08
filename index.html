@@ -274,8 +274,18 @@ Just thinking about you makes my heart smile 💕
 <h2>Will you be my Valentine forever? 💖</h2>
 
 <div class="buttons">
-  <button class="yes" data-yes onclick="sayYes()">Yes 💕</button>
-  <button class="no" onmouseover="moveNo()">No 🙈</button>
+
+<button class="yes" data-yes onclick="sayYes()">
+Yes 💕
+</button>
+
+<button class="no"
+onmouseover="moveNo()"
+ontouchstart="moveNo()"
+onclick="moveNo()">
+No 🙈
+</button>
+
 </div>
 
 <!-- MUSIC BUTTON -->
@@ -306,8 +316,8 @@ function sayYes(){
 function moveNo(){
   const btn=document.querySelector(".no");
 
-  const x=Math.random()*200-100;
-  const y=Math.random()*200-100;
+  const x=Math.random()*300-150;
+  const y=Math.random()*300-150;
 
   btn.style.transform=`translate(${x}px,${y}px)`;
 }
