@@ -158,17 +158,6 @@
 
 <body>
 
-  <audio id="bg-music" loop>
-  <source src="christina-perri-thousand-years-mp3pm_4ofUb1HP.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="document.getElementById('bg-music').play()" 
-        style="padding:10px 20px;border:none;background:pink;color:white;border-radius:20px;font-size:16px;cursor:pointer;">
-  ▶️ Play Our Song
-</button>
-
-  
-
   <div class="wrapper">
 
     <!-- LEFT PANEL: MESSAGE -->
@@ -253,6 +242,117 @@
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
     }
   </script>
+  <!-- Background Music -->
+<audio id="bg-music" loop>
+  <source src="christina-perri-thousand-years-mp3pm_4ofUb1HP.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Music Button -->
+<div style="text-align:center;margin-top:20px;">
+  <button onclick="playMusic()" 
+    style="padding:10px 25px;border:none;background:#ff5f7e;color:white;
+    border-radius:25px;font-size:16px;cursor:pointer;">
+    🎵 Play Our Song
+  </button>
+</div>
+
+<!-- Floating Hearts -->
+<div id="hearts-container"></div>
+
+<style>
+/* Floating Hearts */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+  z-index: 0;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Burst Hearts */
+.burst-heart {
+  position: fixed;
+  font-size: 24px;
+  animation: burst 1s ease-out forwards;
+  z-index: 999;
+}
+
+@keyframes burst {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) translateY(-100px);
+    opacity: 0;
+  }
+}
+</style>
+
+<script>
+/* Play Music */
+function playMusic() {
+  document.getElementById("bg-music").play();
+}
+
+/* Floating Hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+setInterval(createHeart, 500);
+
+/* Burst on YES */
+function burstHearts() {
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.className = "burst-heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = (window.innerWidth / 2 + Math.random() * 200 - 100) + "px";
+    heart.style.top = (window.innerHeight / 2 + Math.random() * 100) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 1000);
+  }
+}
+
+/* Connect YES Button */
+document.addEventListener("DOMContentLoaded", () => {
+  const yesBtn = document.querySelector("button[data-yes]");
+
+  if (yesBtn) {
+    yesBtn.addEventListener("click", () => {
+      burstHearts();
+      playMusic();
+    });
+  }
+});
+</script>
 
 </body>
 </html>
